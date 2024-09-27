@@ -2,6 +2,7 @@ import math
 import time
 import random
 
+# insertion sort function
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
@@ -12,6 +13,8 @@ def insertion_sort(arr):
         arr[j + 1] = key
     return arr
 
+
+# partition function
 def partition(arr, left, right, pivot_index):
     pivot = arr[pivot_index]
     arr[pivot_index], arr[right] = arr[right], arr[pivot_index]
@@ -23,6 +26,7 @@ def partition(arr, left, right, pivot_index):
     arr[right], arr[store_index] = arr[store_index], arr[right]
     return store_index
 
+#quickselect function
 def quickselect(arr, k):
     if len(arr) <= 5:
         return insertion_sort(arr)[k]
@@ -52,7 +56,7 @@ def quickselect(arr, k):
         return quickselect(arr[partition_index + 1:], k - partition_index - 1)
 
 
-
+#find the experimental results for time taken to find the median
 def quickselect_experiment(n):
     arr = [random.randint(1, 1000000) for _ in range(n)]
     k = n // 2  # Finding median
@@ -68,10 +72,7 @@ n_values = [500, 1000, 5000, 10000, 50000]
 experimental_results = []
 
 for n in n_values:
-    # Run the experiment multiple times for each n and take the average
-    # to reduce the impact of random fluctuations
     trials = 5
     times = [quickselect_experiment(n) for _ in range(trials)]
     average_time = sum(times) / trials
     print(f"Average time for n={n}: {average_time} ns")
-    # experimental_results.append(average_time)
